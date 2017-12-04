@@ -56,6 +56,31 @@ Type : Present in sklearn.preprocessing.imputation module
 
 把可能性的value/String 转换为数字
 
+`LabelEncoder`  把string标签变成整数
+
+`OneHotEncoder` 是针对没有大小，顺序的标签，按照bit做数值映射 
+
+```python
+# Encoding catogorical data
+
+from sklearn.preprocessing import LabelEncoder, OneHotEncoder
+
+labelEncoder_X = LabelEncoder()
+X[:,0] = labelEncoder_X.fit_transform(X[:,0])
+# dummy encoding to make values without order
+
+oneHotEncoder = OneHotEncoder(categorical_features = [0])
+X = oneHotEncoder.fit_transform(X).toarray()
+```
 
 
- 
+
+## Splitting the dataset into the Training set and Test set
+
+
+
+```python
+from sklearn.cross_validation import train_test_split
+X_train, X_test, y_train, y_test = train_test_split(X, y, test_size = 0.2, random_state = 0)
+```
+
