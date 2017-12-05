@@ -77,10 +77,42 @@ X = oneHotEncoder.fit_transform(X).toarray()
 
 ## Splitting the dataset into the Training set and Test set
 
-
+把数据分成训练组和验证组
 
 ```python
 from sklearn.cross_validation import train_test_split
 X_train, X_test, y_train, y_test = train_test_split(X, y, test_size = 0.2, random_state = 0)
 ```
+
+## Feature scaling
+
+> [euclidean distance](https://zh.wikipedia.org/wiki/%E6%AC%A7%E5%87%A0%E9%87%8C%E5%BE%97%E8%B7%9D%E7%A6%BB)
+
+`欧氏距离` 
+
+使用测度时候，使得不同维度数字有平方后相加的情况，两者的值域如果相差太大会使得单一测度的值失去意义，所以需要把他们映射到固定的值域去。
+即使不涉及欧氏距离这种测度，feature scaling 也会使得计算速度得以提升
+
+![](img/standarisation_Normalisation.png)
+
+
+> [why fit and transform training set but only transform test set?](https://stackoverflow.com/questions/43675665/when-scale-the-data-why-the-train-dataset-use-fit-and-transform-but-the-te)
+ 
+```
+fit() is used to compute the parameter needed for transformation and transform() is for scaling the data to convert into standard format for the model.
+
+fit_tranform() is combination of two which is doing above work in efficiently.
+
+Since fit_transform() is already computing and transforming the training data only transformation for testing data is left,since parameter needed for transformation is already computed and stored only transformation() of testing data is left therefor only transform() is used instead of fit_transform().
+```
+
+```python
+from sklearn.preprocessing import StandardScaler
+sc_X = StandardScaler()
+X_train = sc_X.fit_transform(X_train)
+X_test = sc_X.transform(X_test)
+sc_y = StandardScaler()
+y_train = sc_y.fit_transform(y_train)
+```
+
 
