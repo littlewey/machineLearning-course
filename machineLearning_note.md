@@ -1,6 +1,95 @@
+ML learning cheatsheet
+
+[TOC]
+
 # Data Preprocessing
 
 download data set from https://www.superdatascience.com/machine-learning/
+
+## Import data
+
+### Lib
+
+```python
+# Importing the libraries
+import numpy as np
+import matplotlib.pyplot as plt
+import pandas as pd
+```
+
+### Import
+
+```python
+# Importing the dataset
+dataset = pd.read_csv('Salary_Data.csv')
+X = dataset.iloc[:, :-1].values
+y = dataset.iloc[:, 1].values
+```
+
+> play with it, 角标
+
+```python
+dataset
+Out[16]: 
+    YearsExperience    Salary
+0               1.1   39343.0
+1               1.3   46205.0
+2               1.5   37731.0
+3               2.0   43525.0
+4               2.2   39891.0
+5               2.9   56642.0
+6               3.0   60150.0
+7               3.2   54445.0
+
+type(dataset)
+Out[17]: pandas.core.frame.DataFrame
+
+dataset.iloc[1]
+Out[18]: 
+YearsExperience        1.3
+Salary             46205.0
+Name: 1, dtype: float64
+
+dataset.iloc[1,1]
+Out[19]: 46205.0
+
+dataset.iloc[:,1]
+Out[20]: 
+0      39343.0
+1      46205.0
+2      37731.0
+3      43525.0
+4      39891.0
+5      56642.0
+6      60150.0
+7      54445.0
+
+dataset.iloc[:,:-1]
+Out[22]: 
+    YearsExperience
+0               1.1
+1               1.3
+2               1.5
+3               2.0
+4               2.2
+5               2.9
+6               3.0
+7               3.2
+```
+
+> play with it, type
+
+```python
+type(dataset.iloc[:,:-1])
+Out[23]: pandas.core.frame.DataFrame
+
+type(dataset.iloc[:,:-1].values)
+Out[24]: numpy.ndarray
+```
+
+
+
+
 
 ## Missing data
 
@@ -97,7 +186,7 @@ X_train, X_test, y_train, y_test = train_test_split(X, y, test_size = 0.2, rando
 
 
 > [why fit and transform training set but only transform test set?](https://stackoverflow.com/questions/43675665/when-scale-the-data-why-the-train-dataset-use-fit-and-transform-but-the-te)
- 
+
 ```
 fit() is used to compute the parameter needed for transformation and transform() is for scaling the data to convert into standard format for the model.
 
@@ -115,4 +204,40 @@ sc_y = StandardScaler()
 y_train = sc_y.fit_transform(y_train)
 ```
 
+
+
+# Regression
+
+## Linear Regression
+
+### Simple Linear Regression
+
+- Step 1 preprocessing data
+- Step 2 fit simple linear regression to training set
+
+```python
+# Fitting Simple Linear Regression to the Training set
+from sklearn.linear_model import LinearRegression
+regressor = LinearRegression()
+regressor.fit(X_train, y_train)
+```
+
+```python
+type(regressor)
+Out[26]: sklearn.linear_model.base.LinearRegression
+```
+
+- Step 3 predicting test set results
+
+```python
+# Predicting the Test set results
+y_pred = regressor.predict(X_test)
+```
+
+```python
+type(y_pred)
+Out[29]: numpy.ndarray
+```
+
+- Step 4
 
